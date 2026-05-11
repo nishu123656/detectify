@@ -8,16 +8,16 @@ MODEL_PATH = 'best.pt'
 if not os.path.exists(MODEL_PATH):
     print("Downloading model from Google Drive...")
     import urllib.request
-    FILE_ID = "1hSCtOnQ0Q-q7C6R6OwtKtGG9ZXNpwqXl"   # ← Step 5 wali ID
+    FILE_ID = "1hSCtOnQ0Q-q7C6R6OwtKtGG9ZXNpwqXl"
     url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
     urllib.request.urlretrieve(url, MODEL_PATH)
     print("Model downloaded!")
 
 app = Flask(__name__)
 os.makedirs('static/uploads', exist_ok=True)
-model = YOLO(MODEL_PATH)
 
-model = YOLO('runs/detect/rooftop_detector-3/weights/best.pt')
+# ── Load model ONCE from best.pt ──
+model = YOLO(MODEL_PATH)
 
 @app.route('/')
 def home():
@@ -75,4 +75,5 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
