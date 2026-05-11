@@ -1,0 +1,12 @@
+names:
+- object
+nc: 1
+roboflow:
+  license: CC BY 4.0
+  project: objects-7fzco
+  url: https://universe.roboflow.com/objectobjects/objects-7fzco/dataset/1
+  version: 1
+  workspace: objectobjects
+test: ../test/images
+train: ../train/images
+val: ../valid/images
